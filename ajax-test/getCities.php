@@ -8,7 +8,7 @@ function getCitiesAsJson($mysqli,$country){
 	$stmt = $mysqli->prepare($sql);
 	$stmt->bind_param("s",$country);
 	$stmt->execute();
-    $result = $stmt->get_result();
+	$result = $stmt->get_result();
 
 	if(!$result){
 		echo $mysqli->error;
@@ -16,8 +16,7 @@ function getCitiesAsJson($mysqli,$country){
 		$json = [];
 		while($row = $result->fetch_array(MYSQLI_ASSOC)) {
             $json[] = $row;
-        }
-    echo json_encode($json);    
+    	}
 	return json_encode($json);
 	}
 }

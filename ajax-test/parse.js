@@ -23,7 +23,7 @@ xhttp.send();
 
 function populateSelect(data){
 
-DATA.cities = JSON.arse(data);
+DATA.cities = JSON.parse(data);
 
 var sel = document.getElementById('city');
 sel.innerHTML="";
