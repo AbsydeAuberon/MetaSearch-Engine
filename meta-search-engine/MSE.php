@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $html = "
 <!DOCTYPE html>
 <html>
@@ -12,8 +14,9 @@ $html = "
     <h1>METASEARCH ENGINE</h1>
     <h2> <a href = \"userRegistration.php\"> > Register</a></h2>
     <h2> <a href = \"userLogin.php\"> > Login</a></h2>
-    <h2> <a href = \"listItems.php\"> > SEARCH</a></h2>
-    <h2> <a href = \"getItemsJSON.php\"> > Get Items as JSON</a></h2>";
+    <h2> <a href = \"searchItems.php\"> > SEARCH</a></h2>
+    <h2> <a href = \"viewOrders.php\"> > VIEW ORDERS</a></h2>";
+    
 
     if(isset($_SESSION['login']) && isset($_COOKIE['login']))
     {
@@ -21,8 +24,6 @@ $html = "
         {
             $html .= "<h2> <a href = \"userLogout.php\"> > Log Out</a></h2>";
         }
-    
-        die();
     }
 
 

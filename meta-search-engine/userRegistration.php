@@ -27,14 +27,29 @@ if (isset($_POST["email"]) && isset($_POST["pass"]))
 
     if(filter_var($mail, FILTER_VALIDATE_EMAIL))
     {
-        $stmt = $mysqli->prepare("INSERT INTO user (mail, pass, is_confirmed, confirm_code) 
-        VALUES ( ?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $mail, $hash_pass, $is_confirmed, $confirm_code);
+        $stmt = $mysqli->prepare("SELECT * FROM user WHERE mail = ?");
+        $stmt->bind_param("s", $mail);
         $stmt->execute();
         $result = $stmt->get_result();
+
+
+        if($result->num_rows == 0 )
+        {
+            $stmt = $mysqli->prepare("INSERT INTO user (mail, pass, is_confirmed, confirm_code) 
+            VALUES ( ?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $mail, $hash_pass, $is_confirmed, $confirm_code);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            echo "<p>You have to confirm your user with the link we have sent to your e-mail.</p>";
+            sendEmailConfirmation($mail, $confirm_code);
+        }
+
+        else
+        {
+            echo "<p> User is already registered.</p>";
+        }
         
-        echo "<p>You have to confirm your user with the link we have sent to your e-mail.</p>";
-        sendEmailConfirmation($mail, $confirm_code);
     }
 
     else
@@ -76,7 +91,7 @@ else{
                 <input type='submit' value='Submit'>
 
                 <br></br>
-                <h3><a href = \"index.php\"> > HOME</a></h3>
+                <h3><a href = \"MSE.php\"> > HOME</a></h3>
 
             </form>
         </body>

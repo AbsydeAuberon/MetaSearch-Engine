@@ -37,6 +37,7 @@ if (isset($_POST["email"]) && isset($_POST["pass"]))
         else
         {
             setcookie("login", "1", time() + 60 * 30);
+            setcookie("user", $mail, time() + 60 * 30);
             $_SESSION['login'] = "true";
             echo "<p> Succesfully logged in! </p> <br> <h3><a href = \"MSE.php\"> > HOME</a></h3>";
         }

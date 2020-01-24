@@ -12,19 +12,18 @@ if(isset($_SESSION['login']) && isset($_COOKIE['login']))
             <title>Metasearch Engine</title>
         </head>
 
-        <script src = 'js/parseItems.js'></script>
+        <script src = 'js/parseOrders.js'></script>
 
         <body>
-        <h1>SEARCH ITEMS</h1>
+        <h1>VIEW ORDERS</h1>
         <h3><a href = \"MSE.php\"> > HOME</a></h3>
 
-        <form method = 'post' action = ''>
-            <label> Search: </label> <br>
-                <input type = 'text' onchange = 'performSearchItems(this.value);'>
-        </form>
+        <h3> Click Here to show your orders </h3>
+        <button onclick = 'performSearchOrders(\"{$_COOKIE['user']}\");'> Show Orders </button>
+        
         <br></br>
         
-        <table id=products>
+        <table id=orders>
         </table>";
 
     $html .= "</body>
@@ -43,6 +42,9 @@ else
           <h3><a href = \"MSE.php\"> > HOME</a></h3>";
 
 }
+
+
+
 
 
 ?>
