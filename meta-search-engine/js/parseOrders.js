@@ -19,13 +19,6 @@ var MSE_Credentials = {
     pass: "mseadmin"
 }
 
-var booleans = 
-{
-    BoolSoftGamer_order: false,
-    BoolSoftGamer_order_prod: false,
-    BoolSoftGamer_product: false,
-}
-
 
 function getJSONEnergy(url)
 {
@@ -101,8 +94,10 @@ function performSearchOrders(mailPassed){
 
     generateTableIndexes();
     getJSONSoftgamer(url_softgamer);
+    getJSONEnergy(url_energydrink);
 
     populateSoftGamer();
+    populateEnergyDrink();
     
 }
 
@@ -123,43 +118,61 @@ function generateTableIndexes(){
     sel.appendChild(tr);
 }
 
-function populateEnergyDrink(data){
+function populateEnergyDrink(){
 
-    DATA.products_energy = JSON.parse(data);
-    console.log(DATA.products_energy);
 
-    var sel = document.getElementById('products');
-    for(var i = 0; i < DATA.products_energy.length; i++){
+    var sel = document.getElementById('orders');
+
+    for(var x = 0;  x < DATA.orders_energy_order.length; x++)
+    {
+
+        for(var i = 0; i < DATA.orders_energy_order_prod.length; i++){
         
-        var tr = document.createElement('tr');
-
-        for(var j = 0; j < 3; j++){
-            
-            var opt = document.createElement('td');
-
-            if(j == 0){        
-                opt.innerHTML = DATA.products_energy[i].Brand + " " + DATA.products_energy[i].Name;
-                opt.value = DATA.products_energy[i].Brand +  " " + DATA.products_energy[i].Name;
+            var tr = document.createElement('tr');
+    
+            for(var j = 0; j < DATA.table_elements.length; j++){
+                
+                var opt = document.createElement('td');
+    
+                switch(j)
+                {
+                    case 0:
+                        opt.innerHTML = "EnergyDrink_" + DATA.orders_energy_order_prod[i].ID_Orders;
+                        opt.value = "EnergyDrink_" + DATA.orders_energy_order_prod[i].ID_Orders;
+                        break;
+    
+                    case 1:
+                        opt.innerHTML = DATA.orders_energy_products[i].Brand + DATA.orders_energy_products[i].Name;
+                        opt.value = DATA.orders_energy_products[i].Brand + DATA.orders_energy_products[i].Name;
+                        break;
+                
+                    case 2:
+                        opt.innerHTML = DATA.orders_energy_products[i].Description;
+                        opt.value = DATA.orders_energy_products[i].Description;
+                        break;
+                    
+                    case 3:
+                        opt.innerHTML = DATA.orders_energy_order_prod[i].Price_Product;
+                        opt.value = DATA.orders_energy_order_prod[i].Price_Product;
+                        break;
+    
+                    case 4:
+                        opt.innerHTML = DATA.orders_energy_order[x].Date;
+                        opt.value = DATA.orders_energy_order[x].Date;
+                        break;
+    
+                    case 5:
+                        opt.innerHTML = DATA.orders_energy_order_prod[i].Quantity;
+                        opt.value = DATA.orders_energy_order_prod[i].Quantity;
+                        break;
+                }
+                console.log(opt);
+                tr.appendChild(opt);
             }
-
-            if(j == 1){        
-                opt.innerHTML = DATA.products_energy[i].Description;
-                opt.value = DATA.products_energy[i].Description;
-            }
-
-            if(j == 2){        
-                opt.innerHTML = DATA.products_energy[i].Price;
-                opt.value = DATA.products_energy[i].Price;
-            }
-
-
-            tr.appendChild(opt);
+    
+            sel.appendChild(tr);
         }
-
-        sel.appendChild(tr);
     }
-
-    //Name = brand + name*/
 
 }
 
@@ -181,8 +194,8 @@ function populateSoftGamer(){
                 switch(j)
                 {
                     case 0:
-                        opt.innerHTML = DATA.orders_softgamer_order_prod[i].ID_Order;
-                        opt.value = DATA.orders_softgamer_order_prod[i].ID_Order;
+                        opt.innerHTML = "SoftGamer_" + DATA.orders_softgamer_order_prod[i].ID_Order;
+                        opt.value = "SoftGamer_" + DATA.orders_softgamer_order_prod[i].ID_Order;
                         break;
     
                     case 1:
@@ -192,7 +205,7 @@ function populateSoftGamer(){
                 
                     case 2:
                         opt.innerHTML = DATA.orders_softgamer_products[i].Description;
-                        opt.value = DATA.orders_softgamer_order_prod[i].Description;
+                        opt.value = DATA.orders_softgamer_products[i].Description;
                         break;
                     
                     case 3:
